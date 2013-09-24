@@ -103,10 +103,7 @@ public class Percolation
         test.open(5, 3);
         System.out.println(test.isFull(2, 4));
         System.out.println("/////////////////");
-        for (int i = 1; i < 6; i++)
-            for (int j = 1; j < 6; j++)
-                System.out.println(test.isFull(i, j));
-        test.showGrid();
+
 
 
 
