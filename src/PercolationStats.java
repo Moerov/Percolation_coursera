@@ -35,7 +35,7 @@ public class PercolationStats
             while (!grid.percolates()) {
                 int j = (int) (Math.floor(Math.random()*N + 1));
                 int k = (int) (Math.floor(Math.random()*N + 1));
-                if (grid.isFull(j, k)) {
+                if (!grid.isOpen(j, k)) {
                    grid.open(j, k);
                    counter++;
                    //System.out.println("counter++");
@@ -87,7 +87,8 @@ public class PercolationStats
 //
 //
 //        PercolationStats test =
-//                new PercolationStats(Integer.parseInt(args[0]), Integer.parseInt(args[1]));
+//                new PercolationStats(Integer.parseInt(args[0]),
+// Integer.parseInt(args[1]));
 
         PercolationStats test = new PercolationStats(200, 100);
         System.out.println("mean = " + test.mean());
@@ -95,7 +96,7 @@ public class PercolationStats
         System.out.println("95% confidence interval: "
                 + test.confidenceLo() + ", " + test.confidenceHi());
 
-        for (int i = 0; i < test.T; i++){
+        for (int i = 0; i < test.T; i++) {
             System.out.println(test.threshold[i]);
                 }
 

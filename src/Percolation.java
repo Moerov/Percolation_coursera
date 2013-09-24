@@ -56,7 +56,8 @@ public class Percolation
     // is site (row i, column j) full?
     public boolean isFull(int i, int j)
     {
-        return grid[i-1][j-1] == 0;
+        return (unit.connected(intxyTo1D(i, j), 0)
+                || unit.connected(intxyTo1D(i, j), N*N + 1));
     }
 
     // does the system percolate?
@@ -101,11 +102,11 @@ public class Percolation
         test.open(4, 3);
         test.open(5, 3);
         System.out.println(test.isFull(2, 4));
-
-        int a = 1000;
-        int b = 4000;
-        double c = ((double) a) / ((double) b);
-        System.out.println(c);
+        System.out.println("/////////////////");
+        for (int i = 1; i < 6; i++)
+            for (int j = 1; j < 6; j++)
+                System.out.println(test.isFull(i, j));
+        test.showGrid();
 
 
 
