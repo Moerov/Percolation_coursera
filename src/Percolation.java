@@ -1,17 +1,18 @@
 /****************************************************************************
- *  Compilation:  javac Percolation.java
- *  Execution:  java Percolation
- *
- *
- *  Percolation.
+ *  Compilation:  javac PercolationStats.java
+ *  Execution:  java PercolationStats
+ *  Name: Andrey Moerov
+ *  Date: 25 September
+ *  This program contains a data type Percolation that contains all
+ *  necessary data structure and methods.
  *
  ****************************************************************************/
 
 public class Percolation
 {
-    private int N;                               //grid size
-    private int[][] grid;                          //grid of open and full cells
-    private WeightedQuickUnionUF unit;           //set of objects
+    private int N;                          //grid size
+    private int[][] grid;                   //grid of open (1) and close (0) cells
+    private WeightedQuickUnionUF unit;      //set of objects
 
     // create N-by-N grid, with all sites blocked
     public Percolation(int size)
@@ -66,12 +67,14 @@ public class Percolation
         return unit.connected(0, N*N + 1);
     }
 
+    //is size a valid number? Otherwise throw an exception.
     private void check(int i)
     {
         if (i <= 0 || i > N)
         { throw new IndexOutOfBoundsException("Row index i out of bounds"); }
     }
 
+    //performs conversion 2D coordinates ([1, N]) to 1D coordinate
     private int intxyTo1D(int i, int j) {
         check(i);
         check(j);
@@ -79,7 +82,7 @@ public class Percolation
 
     }
 
-    //Temp method!!
+    //Method for test a class. Show the grid (1 - open site, 0 - close site)
     private void showGrid() {
         for (int i = 0; i < N; i++)
         { for (int j = 0; j < N; j++)
@@ -87,26 +90,20 @@ public class Percolation
         System.out.println(); }
 
     }
-    /* Temp method!! */
 
+    //Main method for test class Percolation. Create an instance and call methods.
     public static void main(String[] args) {
-        Stopwatch stopwatch = new Stopwatch();
 
         Percolation test = new Percolation(5);
         test.showGrid();
-        System.out.println();
-        System.out.println(test.percolates());
+        System.out.println("Percolates? " + test.percolates());
         test.open(1, 3);
         test.open(2, 3);
         test.open(3, 3);
         test.open(4, 3);
         test.open(5, 3);
-        System.out.println(test.isFull(2, 4));
-        System.out.println("/////////////////");
+        test.showGrid();
+        System.out.println("Percolates? " + test.percolates());
 
-
-
-
-        System.out.println("Runtime: " + stopwatch.elapsedTime());
     }
 }

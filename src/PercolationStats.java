@@ -1,19 +1,23 @@
 /****************************************************************************
- *
- *  Something!!!!!
- *
- *
- *  Percolation.
+ *  Compilation:  javac PercolationStats.java
+ *  Execution:  java PercolationStats N T
+ *  Name: Andrey Moerov
+ *  Date: 25 September
+ *  This program takes two command-line arguments N and T,
+ *  performs T independent computational experiments on a N-by-N grid,
+ *  and prints out the mean, standard deviation, and the 95% confidence
+ *  interval for the percolation threshold.
  *
  ****************************************************************************/
 
 public class PercolationStats
 {
-    private int numberOfExperiments;
-    private int size;
-    private double[] threshold;
-    private double mean;
-    private double stddev;
+    private int numberOfExperiments;  // number of independent
+                                      // computational experiments
+    private int size;                 // grid size
+    private double[] threshold;       // an array of thresholds
+    private double mean;              // mean
+    private double stddev;            // standard deviation
 
 
     // perform numberOfExperiments independent computational
@@ -21,14 +25,21 @@ public class PercolationStats
     public PercolationStats(int N, int T)
     {
         check(N, T);
-        numberOfExperiments = T;
-        size = N;
-        threshold = new double[numberOfExperiments];
-        mean = 0;
-        stddev = 0;
-        this.simulation();
+        if (N > 1) {
+           numberOfExperiments = T;
+           size = N;
+           threshold = new double[numberOfExperiments];
+           mean = 0;
+           stddev = 0;
+           this.simulation();
+           } else {
+              System.out.println("Case of N = 1. "
+                     + "System percolates iff there is one open site.");
+
+        }
     }
 
+    //private method for performing experiments and calculating thresholds
     private void simulation() {
         for (int i = 0; i < numberOfExperiments; i++) {
             Percolation grid = new Percolation(size);
@@ -46,6 +57,7 @@ public class PercolationStats
         }
     }
 
+    //is size and number of Experiments a valid number? Otherwise throw an exception.
     private void check(int N, int T)
     {
         if (N <= 0 || T <= 0)
@@ -83,6 +95,7 @@ public class PercolationStats
         return (mean + (1.96*Math.sqrt(stddev))/Math.sqrt(numberOfExperiments));
     }
 
+    //Main method takes two arguments and creates an instance of PeroclationStats
     public static void main(String[] args) {
 
         Stopwatch stopwatch = new Stopwatch();
@@ -95,7 +108,6 @@ public class PercolationStats
         System.out.println("stddev = " + test.stddev());
         System.out.println("95% confidence interval: "
                 + test.confidenceLo() + ", " + test.confidenceHi());
-
         System.out.println("Runtime: " + stopwatch.elapsedTime());
     }
 }
